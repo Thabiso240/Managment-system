@@ -1,0 +1,59 @@
+# -----------------------------
+# .NET / Visual Studio
+# -----------------------------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Ll]og/
+[Ll]ogs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+*.rsuser
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!packages/build/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# EF Core / SQLite local database files
+*.db
+*.db-shm
+*.db-wal
+
+# -----------------------------
+# Node (Part 2 prototype tooling, if any)
+# -----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -----------------------------
+# OS / Editor
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# -----------------------------
+# Local runtime/secrets
+# -----------------------------
+appsettings.Local.json
+.env
+local.settings.json
+uploads/
