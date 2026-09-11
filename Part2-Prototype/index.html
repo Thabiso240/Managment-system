@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RaceDay — Find your next race</title>
+  <meta name="description" content="RaceDay is South Africa's running-event platform. Browse races, enrol in a category and view your results.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link active" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="nav-link" href="my-events.html">My Events</a></li>
+          <li><a class="nav-link" href="my-results.html">My Results</a></li>
+          <li><a class="nav-link" href="profile.html">Profile</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-primary btn-sm" href="login.html">Login</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" style="background-image: linear-gradient(120deg, rgba(18,38,58,.94) 0%, rgba(18,38,58,.72) 45%, rgba(18,38,58,.35) 100%), url('https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=crowd%20of%20runners%20at%20the%20start%20line%20of%20a%20big%20city%20road%20race%20in%20South%20Africa%20bright%20sunlight&image_size=landscape_4_3');">
+      <div class="container hero-inner">
+        <p class="chip" style="background: rgba(255,76,41,.2); border-color: transparent; color:#fff;">South Africa's running-event platform</p>
+        <h1>Find your next race</h1>
+        <p class="lead">Browse road, trail and fun-run events across the country, enrol in the category that suits you, and track your finish time and position — all in one place.</p>
+        <div class="hero-actions">
+          <a class="btn btn-rd-primary btn-lg" href="#events">Browse events</a>
+          <a class="btn btn-rd-outline btn-lg" href="register.html">Create an account</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>128</strong><span>Live events</span></div>
+          <div class="hero-stat"><strong>42k</strong><span>Runners</span></div>
+          <div class="hero-stat"><strong>9</strong><span>Provinces</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div class="container">
+      <form class="filter-bar" id="filterForm" role="search" aria-label="Filter events" onsubmit="return false;">
+        <div class="filter-grid">
+          <div class="filter-field">
+            <label for="filterSearch">Search events</label>
+            <input type="search" id="filterSearch" placeholder="Try &quot;marathon&quot; or &quot;trail&quot;…" autocomplete="off">
+          </div>
+          <div class="filter-field">
+            <label for="filterType">Event type</label>
+            <select id="filterType">
+              <option value="all">All types</option>
+              <option value="Road">Road</option>
+              <option value="Trail">Trail</option>
+              <option value="FunRun">Fun Run</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="filterLocation">Location</label>
+            <select id="filterLocation">
+              <option value="all">All locations</option>
+              <option value="Johannesburg">Johannesburg</option>
+              <option value="Centurion">Centurion</option>
+              <option value="Cape Town">Cape Town</option>
+              <option value="Durban">Durban</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <div class="filter-check">
+              <input type="checkbox" id="filterUpcoming">
+              <label for="filterUpcoming">Upcoming only</label>
+            </div>
+            <button class="btn btn-rd-ghost btn-sm" type="button" id="filterReset">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Event grid -->
+    <section class="section" id="events">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Featured events</h2>
+            <p class="muted">Showing a selection of upcoming and recent races.</p>
+          </div>
+          <p class="muted" id="resultsCount" aria-live="polite">4 events found</p>
+        </div>
+
+        <div class="grid-events" id="eventGrid">
+
+          <!-- Card 1: past marathon -->
+          <article class="event-card" data-name="Johannesburg City Marathon" data-type="Road" data-location="Johannesburg" data-upcoming="false">
+            <div class="event-card-media">
+              <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=large%20city%20marathon%20with%20thousands%20of%20runners%20on%20a%20road%20in%20bright%20sunlight&image_size=landscape_4_3"
+                   alt="Thousands of runners taking part in the Johannesburg City Marathon on a wide road in bright sunlight">
+              <span class="badge badge-type">Road</span>
+              <span class="event-date-chip">16 Aug 2026</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Johannesburg City Marathon</h3>
+              <ul class="event-meta">
+                <li><span class="meta-icon" aria-hidden="true">📍</span> Johannesburg, Gauteng</li>
+                <li><span class="meta-icon" aria-hidden="true">🏁</span> 42.2km</li>
+                <li><span class="meta-icon" aria-hidden="true">🗓</span> Sun, 16 Aug 2026 · 06:00</li>
+              </ul>
+              <div class="event-card-foot">
+                <span class="price-tag">From R350</span>
+                <a class="btn btn-rd-primary btn-sm" href="event-detail.html">View details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: future half marathon -->
+          <article class="event-card" data-name="Highveld Spring Half Marathon" data-type="Road" data-location="Centurion" data-upcoming="true">
+            <div class="event-card-media">
+              <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=runners%20on%20a%20scenic%20half%20marathon%20road%20through%20green%20Highveld%20countryside%20at%20sunrise&image_size=landscape_4_3"
+                   alt="Runners on a scenic half marathon road through green Highveld countryside at sunrise">
+              <span class="badge badge-type">Road</span>
+              <span class="event-date-chip">21 Nov 2026</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Highveld Spring Half Marathon</h3>
+              <ul class="event-meta">
+                <li><span class="meta-icon" aria-hidden="true">📍</span> Centurion, Gauteng</li>
+                <li><span class="meta-icon" aria-hidden="true">🏁</span> 21.1km</li>
+                <li><span class="meta-icon" aria-hidden="true">🗓</span> Sat, 21 Nov 2026 · 06:30</li>
+              </ul>
+              <div class="event-card-foot">
+                <span class="price-tag">From R220</span>
+                <a class="btn btn-rd-primary btn-sm" href="event-detail.html">View details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: future trail -->
+          <article class="event-card" data-name="Table Mountain Trail Challenge" data-type="Trail" data-location="Cape Town" data-upcoming="true">
+            <div class="event-card-media">
+              <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=trail%20runners%20climbing%20a%20rocky%20mountain%20path%20with%20Table%20Mountain%20in%20the%20background%20Cape%20Town&image_size=landscape_4_3"
+                   alt="Trail runners climbing a rocky mountain path with Table Mountain in the background">
+              <span class="badge badge-type">Trail</span>
+              <span class="event-date-chip">05 Dec 2026</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Table Mountain Trail Challenge</h3>
+              <ul class="event-meta">
+                <li><span class="meta-icon" aria-hidden="true">📍</span> Cape Town, Western Cape</li>
+                <li><span class="meta-icon" aria-hidden="true">🏁</span> 15km</li>
+                <li><span class="meta-icon" aria-hidden="true">🗓</span> Sat, 05 Dec 2026 · 07:00</li>
+              </ul>
+              <div class="event-card-foot">
+                <span class="price-tag">From R280</span>
+                <a class="btn btn-rd-primary btn-sm" href="event-detail.html">View details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: future fun run -->
+          <article class="event-card" data-name="Family Fun Run 5km" data-type="FunRun" data-location="Durban" data-upcoming="true">
+            <div class="event-card-media">
+              <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=families%20and%20children%20running%20together%20at%20a%20colourful%205km%20fun%20run%20on%20a%20sunny%20beachfront%20promenade&image_size=landscape_4_3"
+                   alt="Families and children running together at a colourful 5km fun run on a sunny beachfront promenade">
+              <span class="badge badge-type">Fun Run</span>
+              <span class="event-date-chip">17 Jan 2027</span>
+            </div>
+            <div class="event-card-body">
+              <h3>Family Fun Run 5km</h3>
+              <ul class="event-meta">
+                <li><span class="meta-icon" aria-hidden="true">📍</span> Durban, KwaZulu-Natal</li>
+                <li><span class="meta-icon" aria-hidden="true">🏁</span> 5km</li>
+                <li><span class="meta-icon" aria-hidden="true">🗓</span> Sun, 17 Jan 2027 · 08:00</li>
+              </ul>
+              <div class="event-card-foot">
+                <span class="price-tag">From R90</span>
+                <a class="btn btn-rd-primary btn-sm" href="event-detail.html">View details</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="empty-state hidden" id="noResults">
+          <h3>No events match your filters</h3>
+          <p>Try clearing the search box or choosing a different location or event type.</p>
+          <button class="btn btn-rd-outline" type="button" onclick="document.getElementById('filterReset').click();">Clear filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section section-tight" style="background:#fff; border-top:1px solid var(--rd-border); border-bottom:1px solid var(--rd-border);">
+      <div class="container">
+        <div class="section-head"><h2>How RaceDay works</h2></div>
+        <div class="grid-stats-3">
+          <div class="stat-card"><span class="stat-label">Step 1</span><div style="font-size:1.15rem;font-weight:700;color:var(--rd-dark);margin:6px 0;">Browse &amp; enrol</div><p class="stat-note mb-0">Search by type, distance or city and pick the race that fits your training.</p></div>
+          <div class="stat-card accent-success"><span class="stat-label">Step 2</span><div style="font-size:1.15rem;font-weight:700;color:var(--rd-dark);margin:6px 0;">Confirm your entry</div><p class="stat-note mb-0">Choose a category, pay your entry fee and receive a confirmed race number.</p></div>
+          <div class="stat-card accent-dark"><span class="stat-label">Step 3</span><div style="font-size:1.15rem;font-weight:700;color:var(--rd-dark);margin:6px 0;">Race &amp; view results</div><p class="stat-note mb-0">After the event, see your finish time and position among all finishers.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
