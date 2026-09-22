@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Events — RaceDay</title>
+  <meta name="description" content="Events you have entered on RaceDay, with category and enrolment status.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link active" href="my-events.html" aria-current="page">My Events</a></li>
+          <li><a class="nav-link" href="my-results.html">My Results</a></li>
+          <li><a class="nav-link" href="profile.html">Profile</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h1>My Events</h1>
+            <p class="muted">All the events you have entered with your category and current enrolment status.</p>
+          </div>
+          <a class="btn btn-rd-primary" href="index.html">Find another event</a>
+        </div>
+
+        <!-- Summary -->
+        <div class="grid-stats-3 mb-2">
+          <div class="stat-card"><span class="stat-label">Upcoming</span><div class="stat-value">2</div><span class="stat-note">Events still to run</span></div>
+          <div class="stat-card accent-warning"><span class="stat-label">Pending</span><div class="stat-value">1</div><span class="stat-note">Awaiting organiser confirmation</span></div>
+          <div class="stat-card accent-success"><span class="stat-label">Confirmed</span><div class="stat-value">1</div><span class="stat-note">Ready to race</span></div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="rd-table">
+              <caption>Your enrolled events</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Highveld Spring Half Marathon</span><br>
+                    <span class="muted">Centurion, Gauteng · 21.1km</span>
+                  </td>
+                  <td>21 Nov 2026</td>
+                  <td>Open Men (18–39)</td>
+                  <td><span class="badge badge-pending">Pending</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="event-detail.html">Details</a>
+                      <button class="btn btn-rd-danger btn-sm" type="button" data-action="cancel" aria-label="Cancel entry for Highveld Spring Half Marathon">Cancel</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Table Mountain Trail Challenge</span><br>
+                    <span class="muted">Cape Town, Western Cape · 15km</span>
+                  </td>
+                  <td>05 Dec 2026</td>
+                  <td>Open Trail (18+)</td>
+                  <td><span class="badge badge-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="event-detail.html">Details</a>
+                      <button class="btn btn-rd-danger btn-sm" type="button" data-action="cancel" aria-label="Cancel entry for Table Mountain Trail Challenge">Cancel</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Family Fun Run 5km</span><br>
+                    <span class="muted">Durban, KwaZulu-Natal · 5km</span>
+                  </td>
+                  <td>17 Jan 2027</td>
+                  <td>Family Fun (Open)</td>
+                  <td><span class="badge badge-cancelled">Cancelled</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="event-detail.html">Details</a>
+                      <a class="btn btn-rd-outline btn-sm" href="event-detail.html">Re-enter</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Johannesburg City Marathon</span><br>
+                    <span class="muted">Johannesburg, Gauteng · 42.2km</span>
+                  </td>
+                  <td>16 Aug 2026</td>
+                  <td>Open Men (18–39)</td>
+                  <td><span class="badge badge-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="my-results.html">View result</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="notice notice-info mt-3" role="note">
+          <span aria-hidden="true">ℹ️</span>
+          <div><strong>Tip:</strong> Cancelling an entry releases your place to the waiting list. Refunds follow the organiser's policy.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

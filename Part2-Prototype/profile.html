@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — RaceDay</title>
+  <meta name="description" content="Manage your RaceDay participant profile and personal details.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="my-events.html">My Events</a></li>
+          <li><a class="nav-link" href="my-results.html">My Results</a></li>
+          <li><a class="nav-link active" href="profile.html" aria-current="page">Profile</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h1>My Profile</h1>
+            <p class="muted">Keep your details up to date so organisers can reach you on race day.</p>
+          </div>
+          <a class="btn btn-rd-outline" href="my-results.html">View my results</a>
+        </div>
+
+        <div id="profileSaved" class="notice notice-success mb-2 hidden" tabindex="-1" role="status">
+          <span aria-hidden="true">✅</span>
+          <div><strong>Saved.</strong> Your profile changes have been updated (prototype).</div>
+        </div>
+
+        <div class="profile-layout">
+          <!-- Avatar / upload -->
+          <aside class="card avatar-block" aria-label="Profile picture">
+            <div class="avatar-wrap">
+              <img id="avatarPreview"
+                   src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=friendly%20portrait%20of%20a%20smiling%20athletic%20runner%20in%20a%20race%20vest%20outdoors&image_size=square"
+                   alt="Profile picture of Thabo Mokoena">
+            </div>
+            <h2 style="font-size:1.2rem;">Thabo Mokoena</h2>
+            <p class="muted mb-2">Participant since 2024</p>
+            <div class="form-group">
+              <label class="upload-btn" for="avatarInput">
+                <span aria-hidden="true">📷</span> Change profile picture
+              </label>
+              <input type="file" id="avatarInput" accept="image/*" class="visually-hidden">
+              <span class="form-hint center">PNG or JPG, up to 2MB.</span>
+            </div>
+            <p class="chip mt-2">3 events · 3 results</p>
+          </aside>
+
+          <!-- Details form -->
+          <div class="card">
+            <h2 style="font-size:1.3rem;">Personal details</h2>
+            <form id="profileForm" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="profileFirstName">First name</label>
+                  <input type="text" id="profileFirstName" value="Thabo" autocomplete="given-name">
+                </div>
+                <div class="form-group">
+                  <label for="profileLastName">Last name</label>
+                  <input type="text" id="profileLastName" value="Mokoena" autocomplete="family-name">
+                </div>
+                <div class="form-group full">
+                  <label for="profileEmail">Email address</label>
+                  <input type="email" id="profileEmail" value="participant@raceday.co.za" autocomplete="email">
+                  <span class="error-msg" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label for="profilePhone">Phone number</label>
+                  <input type="tel" id="profilePhone" value="082 555 0142" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="profileDob">Date of birth</label>
+                  <input type="date" id="profileDob" value="1992-04-18">
+                </div>
+                <div class="form-group">
+                  <label for="profileGender">Gender</label>
+                  <select id="profileGender">
+                    <option value="">Prefer not to say</option>
+                    <option value="female">Female</option>
+                    <option value="male" selected>Male</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="profileCity">City</label>
+                  <input type="text" id="profileCity" value="Centurion" autocomplete="address-level2">
+                </div>
+                <div class="form-group full">
+                  <label for="profileBio">Short bio</label>
+                  <textarea id="profileBio" rows="4" placeholder="Tell the community about your running…">Road runner chasing a sub-3:45 marathon PB. Weekend trail enthusiast based in Centurion.</textarea>
+                  <span class="form-hint">Maximum 240 characters.</span>
+                </div>
+              </div>
+
+              <div class="inline-actions mt-3">
+                <button class="btn btn-rd-primary btn-lg" type="submit">Save changes</button>
+                <button class="btn btn-rd-ghost btn-lg" type="reset">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

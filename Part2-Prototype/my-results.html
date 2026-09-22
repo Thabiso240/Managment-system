@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Results — RaceDay</title>
+  <meta name="description" content="Your personal race results on RaceDay: finish times and finishing positions.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="my-events.html">My Events</a></li>
+          <li><a class="nav-link active" href="my-results.html" aria-current="page">My Results</a></li>
+          <li><a class="nav-link" href="profile.html">Profile</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h1>My Results</h1>
+            <p class="muted">Your official finish times and finishing positions from completed races.</p>
+          </div>
+          <a class="btn btn-rd-outline" href="my-events.html">View my events</a>
+        </div>
+
+        <!-- Summary stats -->
+        <div class="grid-stats mb-2">
+          <div class="stat-card">
+            <span class="stat-label">Total races</span>
+            <div class="stat-value">3</div>
+            <span class="stat-note">Completed events</span>
+          </div>
+          <div class="stat-card accent-success">
+            <span class="stat-label">Personal best</span>
+            <div class="stat-value">1:48:12</div>
+            <span class="stat-note">Highveld Spring Half (21.1km)</span>
+          </div>
+          <div class="stat-card accent-dark">
+            <span class="stat-label">Average time</span>
+            <div class="stat-value">3:02:41</div>
+            <span class="stat-note">Across all distances</span>
+          </div>
+          <div class="stat-card accent-warning">
+            <span class="stat-label">Best position</span>
+            <div class="stat-value">12th</div>
+            <span class="stat-note">Table Mountain Trail Challenge</span>
+          </div>
+        </div>
+
+        <!-- Results table -->
+        <div class="card">
+          <div class="card-head">
+            <h2 style="font-size:1.3rem;">Completed races</h2>
+            <span class="chip">3 results</span>
+          </div>
+          <div class="table-wrap">
+            <table class="rd-table">
+              <caption>Your race results, most recent first</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Finish time</th>
+                  <th scope="col">Finishing position</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Johannesburg City Marathon</span><br>
+                    <span class="muted">Johannesburg, Gauteng · 42.2km</span>
+                  </td>
+                  <td>16 Aug 2026</td>
+                  <td>Open Men (18–39)</td>
+                  <td class="cell-strong">3:58:07</td>
+                  <td><strong>47th</strong> out of 312 finishers</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Highveld Spring Half Marathon</span><br>
+                    <span class="muted">Centurion, Gauteng · 21.1km</span>
+                  </td>
+                  <td>18 Nov 2025</td>
+                  <td>Open Men (18–39)</td>
+                  <td class="cell-strong">1:48:12</td>
+                  <td><strong>88th</strong> out of 540 finishers</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="cell-strong">Table Mountain Trail Challenge</span><br>
+                    <span class="muted">Cape Town, Western Cape · 15km</span>
+                  </td>
+                  <td>06 Dec 2025</td>
+                  <td>Open Trail (18+)</td>
+                  <td class="cell-strong">1:21:44</td>
+                  <td><strong>12th</strong> out of 198 finishers</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-stats-3 mt-3">
+          <div class="stat-card"><span class="stat-label">Furthest distance</span><div class="stat-value" style="font-size:1.5rem;">42.2km</div><span class="stat-note">Johannesburg City Marathon</span></div>
+          <div class="stat-card"><span class="stat-label">Seasons active</span><div class="stat-value" style="font-size:1.5rem;">2</div><span class="stat-note">2025 – 2026</span></div>
+          <div class="stat-card"><span class="stat-label">Chip timed</span><div class="stat-value" style="font-size:1.5rem;">100%</div><span class="stat-note">All results are official</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
