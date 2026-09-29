@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create / Edit Event — RaceDay</title>
+  <meta name="description" content="Create or edit a running event on RaceDay, including categories and banner image.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link" href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a class="nav-link active" href="organiser-event-form.html" aria-current="page">Events</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="organiser-dashboard.html">Dashboard</a> <span aria-hidden="true">›</span> <span>Create / Edit event</span>
+        </nav>
+        <div class="section-head" style="margin-top:12px;">
+          <div>
+            <h1>Create / Edit event</h1>
+            <p class="muted">Fill in the event details, add a banner image and set up your race categories.</p>
+          </div>
+        </div>
+
+        <form id="eventForm" novalidate>
+          <!-- Event basics -->
+          <div class="card mb-2">
+            <h2 style="font-size:1.3rem;">Event details</h2>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="eventName">Event name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="eventName" value="Highveld Spring Half Marathon" required>
+                <span class="error-msg" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group full">
+                <label for="eventDescription">Description</label>
+                <textarea id="eventDescription" rows="4">A fast, flat 21.1km road race through the leafy suburbs of Centurion, ideal for runners chasing a personal best. Water points every 3km and full medical support.</textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="eventDate">Event date</label>
+                <input type="date" id="eventDate" value="2026-11-21">
+              </div>
+              <div class="form-group">
+                <label for="eventTime">Start time</label>
+                <input type="text" id="eventTime" value="06:30">
+              </div>
+
+              <div class="form-group">
+                <label for="eventLocation">Location</label>
+                <input type="text" id="eventLocation" value="Centurion, Gauteng">
+              </div>
+              <div class="form-group">
+                <label for="eventDistance">Distance</label>
+                <input type="text" id="eventDistance" value="21.1km">
+              </div>
+
+              <div class="form-group">
+                <label for="eventType">Event type</label>
+                <select id="eventType">
+                  <option value="road" selected>Road</option>
+                  <option value="trail">Trail</option>
+                  <option value="funrun">Fun Run</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="eventStatus">Publishing status</label>
+                <select id="eventStatus">
+                  <option value="published" selected>Published</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner upload -->
+          <div class="card mb-2">
+            <h2 style="font-size:1.3rem;">Banner image</h2>
+            <p class="muted">Upload a wide, high-quality photo. Recommended 1600 × 700px.</p>
+            <div class="banner-upload">
+              <div class="preview" id="bannerPreview">
+                <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=runners%20on%20a%20scenic%20half%20marathon%20road%20through%20green%20Highveld%20countryside%20at%20sunrise&image_size=landscape_4_3"
+                     alt="Current event banner image showing runners on a scenic road">
+              </div>
+              <div class="form-group">
+                <label class="upload-btn" for="bannerInput"><span aria-hidden="true">⬆</span> Upload banner image</label>
+                <input type="file" id="bannerInput" accept="image/*" class="visually-hidden">
+                <span class="form-hint">PNG or JPG. The preview above updates when you choose a file.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category management -->
+          <div class="card mb-2">
+            <div class="card-head">
+              <h2 style="font-size:1.3rem;">Categories</h2>
+              <span class="chip">4 categories</span>
+            </div>
+            <div class="table-wrap">
+              <table class="rd-table" aria-label="Race categories">
+                <thead>
+                  <tr>
+                    <th scope="col">Category name</th>
+                    <th scope="col">Age group</th>
+                    <th scope="col">Distance</th>
+                    <th scope="col">Entry fee</th>
+                    <th scope="col">Spaces</th>
+                  </tr>
+                </thead>
+                <tbody id="categoryTableBody">
+                  <tr>
+                    <td><input type="text" value="Open Men" aria-label="Category name for Open Men"></td>
+                    <td><input type="text" value="18-39" aria-label="Age group for Open Men"></td>
+                    <td><input type="text" value="21.1km" aria-label="Distance for Open Men"></td>
+                    <td><input type="text" value="R220" aria-label="Entry fee for Open Men"></td>
+                    <td><input type="number" value="700" min="0" aria-label="Spaces for Open Men"></td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" value="Open Women" aria-label="Category name for Open Women"></td>
+                    <td><input type="text" value="18-39" aria-label="Age group for Open Women"></td>
+                    <td><input type="text" value="21.1km" aria-label="Distance for Open Women"></td>
+                    <td><input type="text" value="R220" aria-label="Entry fee for Open Women"></td>
+                    <td><input type="number" value="600" min="0" aria-label="Spaces for Open Women"></td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" value="Veterans 40+" aria-label="Category name for Veterans 40 plus"></td>
+                    <td><input type="text" value="40+" aria-label="Age group for Veterans 40 plus"></td>
+                    <td><input type="text" value="21.1km" aria-label="Distance for Veterans 40 plus"></td>
+                    <td><input type="text" value="R220" aria-label="Entry fee for Veterans 40 plus"></td>
+                    <td><input type="number" value="400" min="0" aria-label="Spaces for Veterans 40 plus"></td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" value="5km Family Fun" aria-label="Category name for 5km Family Fun"></td>
+                    <td><input type="text" value="Open" aria-label="Age group for 5km Family Fun"></td>
+                    <td><input type="text" value="5km" aria-label="Distance for 5km Family Fun"></td>
+                    <td><input type="text" value="R90" aria-label="Entry fee for 5km Family Fun"></td>
+                    <td><input type="number" value="500" min="0" aria-label="Spaces for 5km Family Fun"></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">
+                      <button class="btn btn-rd-outline btn-sm" type="button" id="addCategoryBtn">+ Add category</button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="inline-actions">
+            <button class="btn btn-rd-primary btn-lg" type="submit">Save event</button>
+            <a class="btn btn-rd-ghost btn-lg" href="organiser-dashboard.html">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

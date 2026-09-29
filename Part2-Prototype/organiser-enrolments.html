@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enrolments — Highveld Spring Half Marathon — RaceDay</title>
+  <meta name="description" content="View and manage participants enrolled in an event on RaceDay.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link" href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a class="nav-link active" href="organiser-event-form.html" aria-current="page">Events</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="organiser-dashboard.html">Dashboard</a> <span aria-hidden="true">›</span>
+          <a href="organiser-event-form.html">Highveld Spring Half Marathon</a> <span aria-hidden="true">›</span> <span>Enrolments</span>
+        </nav>
+        <div class="section-head" style="margin-top:12px;">
+          <div>
+            <h1>Enrolments</h1>
+            <p class="muted">Participants enrolled in <strong>Highveld Spring Half Marathon</strong> · 21 Nov 2026.</p>
+          </div>
+          <div class="inline-actions">
+            <a class="btn btn-rd-outline" href="organiser-results.html">Enter results</a>
+            <a class="btn btn-rd-ghost" href="organiser-dashboard.html">Back to dashboard</a>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="grid-stats-3 mb-2">
+          <div class="stat-card"><span class="stat-label">Total enrolments</span><div class="stat-value">540</div><span class="stat-note">of 700 capacity</span></div>
+          <div class="stat-card accent-success"><span class="stat-label">Confirmed</span><div class="stat-value">502</div><span class="stat-note">Paid and confirmed</span></div>
+          <div class="stat-card accent-warning"><span class="stat-label">Pending</span><div class="stat-value">38</div><span class="stat-note">Awaiting payment</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 style="font-size:1.3rem;">Participant list</h2>
+            <span class="chip">Showing 6 of 540</span>
+          </div>
+          <div class="table-wrap">
+            <table class="rd-table">
+              <caption>Participants enrolled in this event</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Participant</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-strong">Lerato Naidoo</td>
+                  <td>lerato.naidoo@example.co.za</td>
+                  <td>Open Women (21.1km)</td>
+                  <td><span class="badge badge-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-ghost btn-sm" type="button">View</button>
+                      <button class="btn btn-rd-danger btn-sm" type="button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell-strong">Kobus van Wyk</td>
+                  <td>kobus.vw@example.co.za</td>
+                  <td>Veterans 40+ (21.1km)</td>
+                  <td><span class="badge badge-pending">Pending</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-primary btn-sm" type="button" data-action="approve" aria-label="Confirm enrolment for Kobus van Wyk">Confirm</button>
+                      <button class="btn btn-rd-danger btn-sm" type="button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell-strong">Mandla Dlamini</td>
+                  <td>mandla.d@example.co.za</td>
+                  <td>10km Open</td>
+                  <td><span class="badge badge-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-ghost btn-sm" type="button">View</button>
+                      <button class="btn btn-rd-danger btn-sm" type="button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell-strong">Sarah Botha</td>
+                  <td>sarah.botha@example.co.za</td>
+                  <td>Open Women (21.1km)</td>
+                  <td><span class="badge badge-pending">Pending</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-primary btn-sm" type="button" data-action="approve" aria-label="Confirm enrolment for Sarah Botha">Confirm</button>
+                      <button class="btn btn-rd-danger btn-sm" type="button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell-strong">Pieter Joubert</td>
+                  <td>pieter.j@example.co.za</td>
+                  <td>Open Men (21.1km)</td>
+                  <td><span class="badge badge-cancelled">Cancelled</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-ghost btn-sm" type="button">View</button>
+                      <button class="btn btn-rd-outline btn-sm" type="button">Restore</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell-strong">Ayanda Khumalo</td>
+                  <td>ayanda.k@example.co.za</td>
+                  <td>5km Family Fun</td>
+                  <td><span class="badge badge-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="btn btn-rd-ghost btn-sm" type="button">View</button>
+                      <button class="btn btn-rd-danger btn-sm" type="button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

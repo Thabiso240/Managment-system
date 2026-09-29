@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organiser Dashboard — RaceDay</title>
+  <meta name="description" content="Organiser dashboard: manage your events, enrolments and results on RaceDay.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FF4C29'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white'%3E%E2%97%8E%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RaceDay home">
+        <span class="brand-mark" aria-hidden="true">◎</span>
+        <span class="brand-name">Race<span class="brand-suffix">Day</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a class="nav-link active" href="organiser-dashboard.html" aria-current="page">Dashboard</a></li>
+          <li><a class="nav-link" href="organiser-event-form.html">Events</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-rd-ghost btn-sm" href="login.html" style="color:#fff;border-color:rgba(255,255,255,.35);">Logout</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="chip">Organiser workspace</p>
+            <h1 style="margin-top:8px;">Dashboard</h1>
+            <p class="muted">Welcome back, Centurion Road Runners. Here's how your events are performing.</p>
+          </div>
+          <a class="btn btn-rd-primary btn-lg" href="organiser-event-form.html">+ Create event</a>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="grid-stats-3 mb-3">
+          <div class="stat-card">
+            <span class="stat-label">Total events</span>
+            <div class="stat-value">4</div>
+            <span class="stat-note">2 published · 2 draft</span>
+          </div>
+          <div class="stat-card accent-success">
+            <span class="stat-label">Total enrolments</span>
+            <div class="stat-value">1&nbsp;284</div>
+            <span class="stat-note">Across all events</span>
+          </div>
+          <div class="stat-card accent-warning">
+            <span class="stat-label">Upcoming events</span>
+            <div class="stat-value">2</div>
+            <span class="stat-note">Next: 21 Nov 2026</span>
+          </div>
+        </div>
+
+        <!-- Events table -->
+        <div class="card">
+          <div class="card-head">
+            <h2 style="font-size:1.3rem;">My events</h2>
+            <a class="btn btn-rd-outline btn-sm" href="organiser-event-form.html">Manage events</a>
+          </div>
+          <div class="table-wrap">
+            <table class="rd-table">
+              <caption>Your events, with enrolment counts and publishing status</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Enrolments</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <img class="thumb" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=runners%20on%20a%20scenic%20half%20marathon%20road%20through%20green%20Highveld%20countryside%20at%20sunrise&image_size=landscape_4_3" alt="Thumbnail banner for the Highveld Spring Half Marathon">
+                      <span class="cell-strong">Highveld Spring Half Marathon</span>
+                    </div>
+                  </td>
+                  <td>21 Nov 2026</td>
+                  <td>Centurion</td>
+                  <td>540 / 700</td>
+                  <td><span class="badge badge-confirmed">Published</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="organiser-enrolments.html">Enrolments</a>
+                      <a class="btn btn-rd-outline btn-sm" href="organiser-results.html">Results</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <img class="thumb" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=trail%20runners%20climbing%20a%20rocky%20mountain%20path%20with%20Table%20Mountain%20in%20the%20background%20Cape%20Town&image_size=landscape_4_3" alt="Thumbnail banner for the Table Mountain Trail Challenge">
+                      <span class="cell-strong">Table Mountain Trail Challenge</span>
+                    </div>
+                  </td>
+                  <td>05 Dec 2026</td>
+                  <td>Cape Town</td>
+                  <td>198 / 300</td>
+                  <td><span class="badge badge-confirmed">Published</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="organiser-enrolments.html">Enrolments</a>
+                      <a class="btn btn-rd-outline btn-sm" href="organiser-results.html">Results</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <img class="thumb" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=large%20city%20marathon%20with%20thousands%20of%20runners%20on%20a%20road%20in%20bright%20sunlight&image_size=landscape_4_3" alt="Thumbnail banner for the Johannesburg City Marathon">
+                      <span class="cell-strong">Johannesburg City Marathon</span>
+                    </div>
+                  </td>
+                  <td>16 Aug 2026</td>
+                  <td>Johannesburg</td>
+                  <td>312 / 312</td>
+                  <td><span class="badge badge-neutral">Completed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="organiser-enrolments.html">Enrolments</a>
+                      <a class="btn btn-rd-outline btn-sm" href="organiser-results.html">Results</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <img class="thumb" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=families%20and%20children%20running%20together%20at%20a%20colourful%205km%20fun%20run%20on%20a%20sunny%20beachfront%20promenade&image_size=landscape_4_3" alt="Thumbnail banner for the Family Fun Run 5km">
+                      <span class="cell-strong">Family Fun Run 5km</span>
+                    </div>
+                  </td>
+                  <td>17 Jan 2027</td>
+                  <td>Durban</td>
+                  <td>234 / 500</td>
+                  <td><span class="badge badge-pending">Draft</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <a class="btn btn-rd-ghost btn-sm" href="organiser-event-form.html">Edit</a>
+                      <a class="btn btn-rd-outline btn-sm" href="organiser-enrolments.html">Enrolments</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <div class="grid-stats-3 mt-3">
+          <div class="card">
+            <h2 style="font-size:1.1rem;">Recent enrolments</h2>
+            <ul class="event-meta" style="margin-bottom:0;">
+              <li><span class="meta-icon" aria-hidden="true">•</span> L. Naidoo entered Open Women</li>
+              <li><span class="meta-icon" aria-hidden="true">•</span> K. van Wyk entered Veterans 40+</li>
+              <li><span class="meta-icon" aria-hidden="true">•</span> M. Dlamini entered 10km Open</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2 style="font-size:1.1rem;">Awaiting action</h2>
+            <ul class="event-meta" style="margin-bottom:0;">
+              <li><span class="meta-icon" aria-hidden="true">•</span> 6 pending enrolments to confirm</li>
+              <li><span class="meta-icon" aria-hidden="true">•</span> Draft event "Family Fun Run" not published</li>
+              <li><span class="meta-icon" aria-hidden="true">•</span> Trail results not yet published</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2 style="font-size:1.1rem;">Quick actions</h2>
+            <div class="inline-actions">
+              <a class="btn btn-rd-primary btn-sm" href="organiser-event-form.html">Create event</a>
+              <a class="btn btn-rd-outline btn-sm" href="organiser-enrolments.html">Review enrolments</a>
+              <a class="btn btn-rd-ghost btn-sm" href="organiser-results.html">Publish results</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name"><span class="brand-mark" aria-hidden="true">◎</span> Race<span class="brand-suffix">Day</span></span>
+        <p>The platform for organising and joining running events across South Africa.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Participants footer">
+        <h2 class="footer-heading">Participants</h2>
+        <ul>
+          <li><a href="index.html">Browse events</a></li>
+          <li><a href="my-events.html">My Events</a></li>
+          <li><a href="my-results.html">My Results</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Organisers footer">
+        <h2 class="footer-heading">Organisers</h2>
+        <ul>
+          <li><a href="organiser-dashboard.html">Dashboard</a></li>
+          <li><a href="organiser-event-form.html">Create event</a></li>
+          <li><a href="organiser-enrolments.html">Enrolments</a></li>
+          <li><a href="organiser-results.html">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 RaceDay (prototype for research purposes). Built as an interaction-design model.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
