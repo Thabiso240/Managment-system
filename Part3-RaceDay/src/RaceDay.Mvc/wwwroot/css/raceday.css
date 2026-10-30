@@ -1,0 +1,420 @@
+/* =========================================================================
+   RaceDay - shared visual theme
+   Energetic, sporting palette applied consistently across every page.
+   ========================================================================= */
+
+:root {
+    --rd-primary: #FF4C29;
+    --rd-primary-dark: #D63A1B;
+    --rd-dark: #12263A;
+    --rd-dark-2: #1B3550;
+    --rd-surface: #F6F8FB;
+    --rd-text: #1B2A41;
+    --rd-muted: #5B6B7F;
+    --rd-border: #E3E8EF;
+    --rd-success: #17B26A;
+    --rd-success-bg: #E6F7EF;
+    --rd-warning: #F79009;
+    --rd-warning-bg: #FEF4E6;
+    --rd-danger: #E31B23;
+    --rd-danger-bg: #FDECEC;
+    --rd-radius: 12px;
+    --rd-shadow: 0 6px 20px rgba(18, 38, 58, .08);
+    --rd-shadow-lg: 0 14px 40px rgba(18, 38, 58, .14);
+}
+
+html {
+    font-size: 16px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--rd-surface);
+    color: var(--rd-text);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+a {
+    color: var(--rd-primary-dark);
+}
+
+/* ---------------- Skip link (accessibility) ---------------- */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--rd-dark);
+    color: #fff;
+    padding: .6rem 1rem;
+    z-index: 2000;
+    border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+    left: 0;
+    color: #fff;
+}
+
+:focus-visible {
+    outline: 3px solid var(--rd-primary);
+    outline-offset: 2px;
+}
+
+/* ---------------- Navigation ---------------- */
+.rd-navbar {
+    background: var(--rd-dark);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .22);
+}
+
+.rd-brand {
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: .5px;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.rd-brand span {
+    color: var(--rd-primary);
+}
+
+.rd-logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--rd-primary);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.rd-navbar .nav-link {
+    color: rgba(255, 255, 255, .82) !important;
+    font-weight: 500;
+    padding: .5rem .9rem;
+    border-radius: 8px;
+}
+
+.rd-navbar .nav-link:hover,
+.rd-navbar .nav-link.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, .1);
+}
+
+.rd-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rd-primary);
+}
+
+.rd-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, .3);
+}
+
+.rd-navbar .navbar-toggler-icon {
+    filter: invert(1) grayscale(1) brightness(2);
+}
+
+/* ---------------- Buttons ---------------- */
+.btn-rd {
+    background: var(--rd-primary);
+    border-color: var(--rd-primary);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: .55rem 1.25rem;
+}
+
+.btn-rd:hover,
+.btn-rd:focus {
+    background: var(--rd-primary-dark);
+    border-color: var(--rd-primary-dark);
+    color: #fff;
+}
+
+.btn-rd-outline {
+    border: 2px solid var(--rd-primary);
+    color: var(--rd-primary-dark);
+    font-weight: 600;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.btn-rd-outline:hover {
+    background: var(--rd-primary);
+    color: #fff;
+}
+
+.btn-rd-dark {
+    background: var(--rd-dark);
+    border-color: var(--rd-dark);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-rd-dark:hover {
+    background: var(--rd-dark-2);
+    border-color: var(--rd-dark-2);
+    color: #fff;
+}
+
+/* ---------------- Hero ---------------- */
+.rd-hero {
+    background: linear-gradient(120deg, var(--rd-dark) 0%, var(--rd-dark-2) 55%, #2C4A6B 100%);
+    color: #fff;
+    border-radius: var(--rd-radius);
+    padding: 3rem 2.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.rd-hero h1 {
+    font-weight: 800;
+    font-size: 2.25rem;
+    margin-bottom: .75rem;
+}
+
+.rd-hero p {
+    color: rgba(255, 255, 255, .85);
+    max-width: 620px;
+    margin-bottom: 1.5rem;
+}
+
+.rd-hero::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    top: -70px;
+    width: 260px;
+    height: 260px;
+    background: var(--rd-primary);
+    opacity: .22;
+    border-radius: 50%;
+}
+
+/* ---------------- Cards ---------------- */
+.rd-card {
+    background: #fff;
+    border: 1px solid var(--rd-border);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    overflow: hidden;
+}
+
+.rd-card-body {
+    padding: 1.25rem 1.4rem;
+}
+
+.rd-event-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.rd-event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--rd-shadow-lg);
+}
+
+.rd-event-banner {
+    width: 100%;
+    height: 175px;
+    object-fit: cover;
+    background: var(--rd-dark-2);
+    display: block;
+}
+
+.rd-event-banner-placeholder {
+    width: 100%;
+    height: 175px;
+    background: linear-gradient(135deg, var(--rd-dark), #2C4A6B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, .6);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.rd-event-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: .35rem;
+}
+
+.rd-meta {
+    color: var(--rd-muted);
+    font-size: .9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem 1rem;
+    margin-bottom: .65rem;
+}
+
+/* ---------------- Stat cards ---------------- */
+.rd-stat {
+    background: #fff;
+    border: 1px solid var(--rd-border);
+    border-left: 5px solid var(--rd-primary);
+    border-radius: var(--rd-radius);
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--rd-shadow);
+    height: 100%;
+}
+
+.rd-stat .rd-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rd-dark);
+    line-height: 1.1;
+}
+
+.rd-stat .rd-stat-label {
+    color: var(--rd-muted);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.rd-stat.is-success { border-left-color: var(--rd-success); }
+.rd-stat.is-warning { border-left-color: var(--rd-warning); }
+.rd-stat.is-dark { border-left-color: var(--rd-dark); }
+
+/* ---------------- Status pills ---------------- */
+.rd-status {
+    display: inline-block;
+    padding: .28rem .7rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.rd-status-confirmed {
+    background: var(--rd-success-bg);
+    color: #0B7A45;
+    border: 1px solid #A6E3C5;
+}
+
+.rd-status-pending {
+    background: var(--rd-warning-bg);
+    color: #A35B00;
+    border: 1px solid #FBD79B;
+}
+
+.rd-status-cancelled {
+    background: var(--rd-danger-bg);
+    color: #A5121A;
+    border: 1px solid #F3B6B9;
+}
+
+.rd-type-pill {
+    background: rgba(255, 76, 41, .12);
+    color: var(--rd-primary-dark);
+    border: 1px solid rgba(255, 76, 41, .3);
+    padding: .2rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+/* ---------------- Tables ---------------- */
+.rd-table thead th {
+    background: var(--rd-dark);
+    color: #fff;
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border: none;
+    white-space: nowrap;
+}
+
+.rd-table tbody tr:hover {
+    background: #F9FBFD;
+}
+
+/* ---------------- Forms ---------------- */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--rd-primary);
+    box-shadow: 0 0 0 .2rem rgba(255, 76, 41, .18);
+}
+
+.rd-auth-card {
+    max-width: 460px;
+    margin: 2.5rem auto;
+}
+
+.rd-section-title {
+    font-weight: 800;
+    color: var(--rd-dark);
+    border-left: 5px solid var(--rd-primary);
+    padding-left: .75rem;
+    margin-bottom: 1.25rem;
+}
+
+.rd-label-hint {
+    color: var(--rd-muted);
+    font-size: .85rem;
+}
+
+/* ---------------- Footer ---------------- */
+.rd-footer {
+    background: var(--rd-dark);
+    color: rgba(255, 255, 255, .7);
+    padding: 1.75rem 0;
+    margin-top: 3rem;
+    flex-shrink: 0;
+}
+
+.rd-footer a {
+    color: rgba(255, 255, 255, .85);
+    text-decoration: none;
+}
+
+.rd-footer a:hover {
+    color: var(--rd-primary);
+}
+
+.rd-banner-preview {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--rd-border);
+}
+
+.rd-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--rd-muted);
+}
+
+@media (max-width: 767.98px) {
+    .rd-hero {
+        padding: 2rem 1.25rem;
+    }
+
+    .rd-hero h1 {
+        font-size: 1.7rem;
+    }
+}

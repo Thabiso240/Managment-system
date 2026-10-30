@@ -1,0 +1,11 @@
+@model string
+@{
+    var status = string.IsNullOrWhiteSpace(Model) ? "Pending" : Model;
+    var css = status switch
+    {
+        "Confirmed" => "rd-status-confirmed",
+        "Cancelled" => "rd-status-cancelled",
+        _ => "rd-status-pending"
+    };
+}
+<span class="rd-status @css">@status</span>

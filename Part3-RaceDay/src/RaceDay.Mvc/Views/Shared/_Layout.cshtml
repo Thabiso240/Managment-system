@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpCtx
+@{
+    var session = HttpCtx.HttpContext!.Session;
+    var isAuthed = SessionUser.IsAuthenticated(session);
+    var isOrganiser = SessionUser.IsOrganiser(session);
+    var isParticipant = SessionUser.IsParticipant(session);
+    var userName = SessionUser.Name(session);
+    var userPhoto = SessionUser.Photo(session);
+    var currentController = (string?)ViewContext.RouteData.Values["controller"];
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RaceDay</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/raceday.css" asp-append-version="true" />
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+        <nav class="navbar navbar-expand-lg rd-navbar" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand rd-brand" asp-controller="Home" asp-action="Index">
+                    <span class="rd-logo-mark">RD</span>
+                    Race<span>Day</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#rdNav"
+                        aria-controls="rdNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="rdNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (!isAuthed || isParticipant)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "Home" ? "active" : "")"
+                                   asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
+                        @if (isParticipant)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "MyEvents" ? "active" : "")"
+                                   asp-controller="MyEvents" asp-action="Index">My Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "MyResults" ? "active" : "")"
+                                   asp-controller="MyResults" asp-action="Index">My Results</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "Profile" ? "active" : "")"
+                                   asp-controller="Profile" asp-action="Index">Profile</a>
+                            </li>
+                        }
+                        @if (isOrganiser)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "Organiser" && (string?)ViewContext.RouteData.Values["action"] == "Dashboard" ? "active" : "")"
+                                   asp-controller="Organiser" asp-action="Dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "Organiser" && (string?)ViewContext.RouteData.Values["action"] != "Dashboard" ? "active" : "")"
+                                   asp-controller="Organiser" asp-action="Events">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(currentController == "Profile" ? "active" : "")"
+                                   asp-controller="Profile" asp-action="Index">Profile</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav align-items-lg-center">
+                        @if (isAuthed)
+                        {
+                            <li class="nav-item d-flex align-items-center me-lg-2">
+                                @if (!string.IsNullOrEmpty(userPhoto))
+                                {
+                                    <img src="@userPhoto" alt="" class="rd-avatar me-2" />
+                                }
+                                <span class="text-white-50 small">
+                                    @userName
+                                    <span class="d-block" style="font-size:.72rem;">@(isOrganiser ? "Organiser" : "Participant")</span>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-rd-outline btn-sm">Log out</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Log in</a>
+                            </li>
+                            <li class="nav-item ms-lg-2">
+                                <a class="btn btn-rd btn-sm" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" role="main" class="container py-4">
+        <partial name="_Flash" />
+        @RenderBody()
+    </main>
+
+    <footer class="rd-footer">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <strong class="text-white">RaceDay</strong> &mdash; event entries and results for the running community.
+            </div>
+            <div class="small">
+                &copy; @DateTime.Now.Year RaceDay &middot;
+                <a asp-controller="Home" asp-action="Index">Browse events</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
