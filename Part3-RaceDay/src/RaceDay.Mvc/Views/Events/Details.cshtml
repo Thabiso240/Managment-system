@@ -1,0 +1,149 @@
+@model RaceDay.Mvc.Models.EventDetailDto
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpCtx
+@{
+    ViewData["Title"] = Model.Name;
+    var session = HttpCtx.HttpContext!.Session;
+    var isAuthed = SessionUser.IsAuthenticated(session);
+    var isParticipant = SessionUser.IsParticipant(session);
+    var myEnrolment = ViewBag.MyEnrolment as RaceDay.Mvc.Models.EnrolmentDto;
+    var isPast = Model.Date.Date < DateTime.UtcNow.Date;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Events</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+    </ol>
+</nav>
+
+<div class="rd-card mb-4">
+    @if (!string.IsNullOrEmpty(Model.BannerImageUrl))
+    {
+        <img src="@Model.BannerImageUrl" class="rd-event-banner" style="height:280px;" alt="Banner image for @Model.Name" />
+    }
+    else
+    {
+        <div class="rd-event-banner-placeholder" style="height:200px;" aria-hidden="true">RACEDAY</div>
+    }
+    <div class="rd-card-body">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <h1 class="h3 fw-bold mb-1">@Model.Name</h1>
+            <span class="rd-type-pill">@RaceDay.Mvc.Models.EventTypes.Label(Model.EventType)</span>
+        </div>
+
+        <div class="rd-meta mt-2">
+            <span><strong>@Model.Date.ToString("dddd dd MMMM yyyy")</strong></span>
+            <span>@Model.Location</span>
+            <span>@Model.DistanceKm.ToString("0.#") km</span>
+            <span>Organised by @Model.OrganiserName</span>
+        </div>
+
+        <p class="mt-3">@Model.Description</p>
+
+        @if (isPast)
+        {
+            <div class="alert alert-secondary mb-0">
+                This event has already taken place. Entries are closed.
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <h2 class="h5 fw-bold mb-3">Available categories</h2>
+
+        @if (!Model.Categories.Any())
+        {
+            <div class="rd-card rd-empty">
+                <p class="mb-0">No categories have been published for this event yet.</p>
+            </div>
+        }
+        else
+        {
+            <form asp-controller="Events" asp-action="Enrol" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="eventId" value="@Model.Id" />
+
+                <div class="d-flex flex-column gap-3">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="rd-card rd-card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="radio" name="categoryId" id="cat-@category.Id"
+                                           value="@category.Id" required />
+                                </div>
+                                <label class="form-check-label flex-grow-1" for="cat-@category.Id">
+                                    <span class="fw-bold d-block">@category.Name</span>
+                                    <span class="small text-muted">
+                                        @if (!string.IsNullOrEmpty(category.AgeGroup))
+                                        {
+                                            <text>Age @category.AgeGroup &middot; </text>
+                                        }
+                                        @if (category.DistanceKm.HasValue)
+                                        {
+                                            <text>@category.DistanceKm.Value.ToString("0.#") km &middot; </text>
+                                        }
+                                        @category.EnrolmentCount entr@(category.EnrolmentCount == 1 ? "y" : "ies")
+                                    </span>
+                                </label>
+                                <span class="fw-bold text-nowrap">
+                                    @(category.EntryFee.HasValue ? "R " + category.EntryFee.Value.ToString("0.00") : "Free")
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-4">
+                    @if (!isAuthed)
+                    {
+                        <a class="btn btn-rd btn-lg" asp-controller="Account" asp-action="Login"
+                           asp-route-returnUrl="@Url.Action("Details", "Events", new { id = Model.Id })">Log in to enter</a>
+                    }
+                    else if (!isParticipant)
+                    {
+                        <div class="alert alert-info mb-0">Organiser accounts cannot enter events.</div>
+                    }
+                    else if (myEnrolment is not null)
+                    {
+                        <div class="alert alert-success d-flex justify-content-between align-items-center mb-0">
+                            <span>You are enrolled in this event &mdash; @(myEnrolment.CategoryName ?? "no category selected").</span>
+                            <partial name="_StatusBadge" model="@myEnrolment.Status" />
+                        </div>
+                    }
+                    else if (isPast)
+                    {
+                        <button class="btn btn-secondary btn-lg" disabled>Entries closed</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-rd btn-lg">Enter Event</button>
+                    }
+                </div>
+            </form>
+        }
+    </div>
+
+    <div class="col-lg-5">
+        <div class="rd-card rd-card-body">
+            <h2 class="h6 fw-bold text-uppercase text-muted">Event summary</h2>
+            <dl class="row mb-0">
+                <dt class="col-6">Date</dt>
+                <dd class="col-6">@Model.Date.ToString("dd MMM yyyy")</dd>
+                <dt class="col-6">Venue</dt>
+                <dd class="col-6">@Model.Location</dd>
+                <dt class="col-6">Distance</dt>
+                <dd class="col-6">@Model.DistanceKm.ToString("0.#") km</dd>
+                <dt class="col-6">Type</dt>
+                <dd class="col-6">@RaceDay.Mvc.Models.EventTypes.Label(Model.EventType)</dd>
+                <dt class="col-6">Categories</dt>
+                <dd class="col-6">@Model.Categories.Count</dd>
+                <dt class="col-6">Organiser</dt>
+                <dd class="col-6">@Model.OrganiserName</dd>
+            </dl>
+        </div>
+    </div>
+</div>

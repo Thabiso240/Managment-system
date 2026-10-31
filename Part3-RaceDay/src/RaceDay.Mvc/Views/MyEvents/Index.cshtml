@@ -1,0 +1,63 @@
+@model IEnumerable<RaceDay.Mvc.Models.EnrolmentDto>
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="rd-section-title mb-0">My Events</h1>
+    <a class="btn btn-rd-outline" asp-controller="Home" asp-action="Index">Find another race</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="rd-card rd-empty">
+        <p class="mb-1 fw-semibold">You have not entered any events yet.</p>
+        <p class="mb-3">Browse the events on the home page and secure your place.</p>
+        <a class="btn btn-rd" asp-controller="Home" asp-action="Index">Browse events</a>
+    </div>
+}
+else
+{
+    <div class="rd-card">
+        <div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrolment in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-semibold">@enrolment.EventName</span>
+                                <span class="d-block small text-muted">@enrolment.Location</span>
+                            </td>
+                            <td>@enrolment.EventDate.ToString("dd MMM yyyy")</td>
+                            <td>@(enrolment.CategoryName ?? "—")</td>
+                            <td><partial name="_StatusBadge" model="@enrolment.Status" /></td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-rd-outline" asp-controller="Events" asp-action="Details"
+                                   asp-route-id="@enrolment.EventId">View</a>
+                                @if (enrolment.Status != "Cancelled")
+                                {
+                                    <form asp-controller="MyEvents" asp-action="Cancel" method="post" class="d-inline"
+                                          onsubmit="return confirm('Cancel your entry for @enrolment.EventName?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@enrolment.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

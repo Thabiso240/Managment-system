@@ -1,0 +1,102 @@
+@model RaceDay.Mvc.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+    var initials = string.Concat(
+        (Model.FirstName ?? "?").Take(1),
+        (Model.LastName ?? "?").Take(1)).ToUpperInvariant();
+}
+
+<h1 class="rd-section-title">My Profile</h1>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="rd-card rd-card-body text-center">
+            @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+            {
+                <img src="@Model.ProfilePictureUrl" alt="Profile picture for @Model.FirstName @Model.LastName"
+                     class="rounded-circle mb-3" style="width:140px;height:140px;object-fit:cover;border:4px solid var(--rd-primary);" />
+            }
+            else
+            {
+                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                     style="width:140px;height:140px;background:var(--rd-dark);color:#fff;font-size:2.6rem;font-weight:800;">
+                    @initials
+                </div>
+            }
+
+            <h2 class="h5 fw-bold mb-0">@Model.FirstName @Model.LastName</h2>
+            <p class="text-muted small mb-3">@Model.Role</p>
+
+            <form asp-controller="Profile" asp-action="UploadPhoto" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <label for="file" class="form-label fw-semibold small">Upload a profile picture</label>
+                <input class="form-control form-control-sm mb-2" type="file" id="file" name="file"
+                       accept="image/png,image/jpeg,image/webp,image/gif" required />
+                <button type="submit" class="btn btn-rd-dark btn-sm w-100">Upload picture</button>
+                <span class="rd-label-hint d-block mt-2">JPG, PNG, WEBP or GIF &middot; maximum 5 MB.</span>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="rd-card rd-card-body">
+            <h2 class="h5 fw-bold mb-3">Personal information</h2>
+
+            <form asp-controller="Profile" asp-action="Update" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="FirstName" class="form-label fw-semibold"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="LastName" class="form-label fw-semibold"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-semibold"></label>
+                        <input asp-for="Email" class="form-control" readonly />
+                        <span class="rd-label-hint">Your email address cannot be changed.</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label fw-semibold"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Gender" class="form-label fw-semibold"></label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">Prefer not to say</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="City" class="form-label fw-semibold"></label>
+                        <input asp-for="City" class="form-control" />
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Bio" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Bio" class="form-control" rows="3"
+                                  placeholder="Tell other runners a little about yourself."></textarea>
+                        <span asp-validation-for="Bio" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-rd mt-4">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

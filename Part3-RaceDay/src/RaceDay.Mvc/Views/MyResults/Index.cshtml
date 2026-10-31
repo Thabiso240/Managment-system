@@ -1,0 +1,72 @@
+@model IEnumerable<RaceDay.Mvc.Models.ParticipantResultDto>
+@{
+    ViewData["Title"] = "My Results";
+    var results = Model.ToList();
+    var totalRaces = results.Count;
+    var fastest = results.OrderBy(r => r.FinishTime).FirstOrDefault();
+    var bestPosition = results.OrderBy(r => r.Position).FirstOrDefault();
+}
+
+<h1 class="rd-section-title">My Results</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-4">
+        <div class="rd-stat">
+            <div class="rd-stat-value">@totalRaces</div>
+            <div class="rd-stat-label">Completed races</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-4">
+        <div class="rd-stat is-success">
+            <div class="rd-stat-value">@(fastest?.FinishTime ?? "—")</div>
+            <div class="rd-stat-label">Personal best time</div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="rd-stat is-dark">
+            <div class="rd-stat-value">@(bestPosition is null ? "—" : $"{bestPosition.Position}")</div>
+            <div class="rd-stat-label">Best finishing position</div>
+        </div>
+    </div>
+</div>
+
+@if (!results.Any())
+{
+    <div class="rd-card rd-empty">
+        <p class="mb-1 fw-semibold">No published results yet.</p>
+        <p class="mb-0">Your results will appear here once an organiser publishes them after an event.</p>
+    </div>
+}
+else
+{
+    <div class="rd-card">
+        <div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Finish time</th>
+                        <th scope="col">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in results)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-semibold">@result.EventName</span>
+                                <span class="d-block small text-muted">@result.Location</span>
+                            </td>
+                            <td>@result.EventDate.ToString("dd MMM yyyy")</td>
+                            <td>@(result.CategoryName ?? "—")</td>
+                            <td><span class="fw-bold">@result.FinishTime</span></td>
+                            <td>@result.PositionLabel</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
