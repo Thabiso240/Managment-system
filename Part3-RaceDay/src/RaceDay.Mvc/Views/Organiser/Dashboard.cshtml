@@ -1,0 +1,93 @@
+@model RaceDay.Mvc.Models.OrganiserDashboardDto
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h1 class="rd-section-title mb-0">Organiser Dashboard</h1>
+    <a class="btn btn-rd" asp-controller="Organiser" asp-action="CreateEvent">Create event</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="rd-stat">
+            <div class="rd-stat-value">@Model.TotalEvents</div>
+            <div class="rd-stat-label">Events created</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="rd-stat is-success">
+            <div class="rd-stat-value">@Model.TotalEnrolments</div>
+            <div class="rd-stat-label">Total enrolments</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="rd-stat is-warning">
+            <div class="rd-stat-value">@Model.UpcomingEvents</div>
+            <div class="rd-stat-label">Upcoming events</div>
+        </div>
+    </div>
+</div>
+
+<div class="rd-card">
+    <div class="rd-card-body pb-0">
+        <h2 class="h5 fw-bold">Your events</h2>
+        <p class="text-muted small">Enrolment totals and upcoming dates for every event you manage.</p>
+    </div>
+
+    @if (!Model.Events.Any())
+    {
+        <div class="rd-empty">
+            <p class="mb-3">You have not created any events yet.</p>
+            <a class="btn btn-rd" asp-controller="Organiser" asp-action="CreateEvent">Create your first event</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Enrolments</th>
+                        <th scope="col" class="text-center">Confirmed</th>
+                        <th scope="col" class="text-center">Pending</th>
+                        <th scope="col" class="text-end">Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ev in Model.Events)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-semibold">@ev.Name</span>
+                                <span class="d-block small text-muted">@ev.Location &middot; @RaceDay.Mvc.Models.EventTypes.Label(ev.EventType)</span>
+                            </td>
+                            <td>@ev.Date.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (ev.IsPast)
+                                {
+                                    <span class="rd-status rd-status-cancelled">Completed</span>
+                                }
+                                else
+                                {
+                                    <span class="rd-status rd-status-confirmed">Upcoming</span>
+                                }
+                            </td>
+                            <td class="text-center fw-bold">@ev.EnrolmentCount</td>
+                            <td class="text-center">@ev.ConfirmedCount</td>
+                            <td class="text-center">@ev.PendingCount</td>
+                            <td class="text-end text-nowrap">
+                                <a class="btn btn-sm btn-rd-outline" asp-controller="Organiser" asp-action="Categories" asp-route-id="@ev.EventId">Categories</a>
+                                <a class="btn btn-sm btn-rd-outline" asp-controller="Organiser" asp-action="Enrolments" asp-route-id="@ev.EventId">Enrolments</a>
+                                <a class="btn btn-sm btn-rd-dark" asp-controller="Organiser" asp-action="Results" asp-route-id="@ev.EventId">Results</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

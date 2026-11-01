@@ -1,0 +1,102 @@
+@model RaceDay.Mvc.Models.EventFormViewModel
+@{
+    ViewData["Title"] = Model.IsEdit ? "Edit Event" : "Create Event";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Organiser" asp-action="Events">Events</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@(Model.IsEdit ? "Edit" : "Create")</li>
+    </ol>
+</nav>
+
+<h1 class="rd-section-title">@(Model.IsEdit ? "Edit event" : "Create a new event")</h1>
+
+<form asp-controller="Organiser" asp-action="@(Model.IsEdit ? "EditEvent" : "CreateEvent")" method="post"
+      enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="BannerImageUrl" />
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="rd-card rd-card-body">
+                <h2 class="h5 fw-bold mb-3">Event details</h2>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-semibold"></label>
+                    <input asp-for="Name" class="form-control" placeholder="e.g. Johannesburg City Marathon" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4"
+                              placeholder="Describe the route, terrain and what runners can expect."></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Date" class="form-label fw-semibold"></label>
+                        <input asp-for="Date" type="date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Location" class="form-label fw-semibold"></label>
+                        <input asp-for="Location" class="form-control" placeholder="City, Province" />
+                        <span asp-validation-for="Location" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DistanceKm" class="form-label fw-semibold"></label>
+                        <input asp-for="DistanceKm" type="number" step="0.1" min="0.1" class="form-control" />
+                        <span asp-validation-for="DistanceKm" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="EventType" class="form-label fw-semibold"></label>
+                        <select asp-for="EventType" class="form-select">
+                            @foreach (var t in RaceDay.Mvc.Models.EventTypes.All)
+                            {
+                                <option value="@t">@RaceDay.Mvc.Models.EventTypes.Label(t)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-rd">@(Model.IsEdit ? "Save changes" : "Create event")</button>
+                <a class="btn btn-outline-secondary" asp-controller="Organiser" asp-action="Events">Cancel</a>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="rd-card rd-card-body">
+                <h2 class="h5 fw-bold mb-3">Event banner</h2>
+
+                @if (!string.IsNullOrEmpty(Model.BannerImageUrl))
+                {
+                    <img src="@Model.BannerImageUrl" class="rd-banner-preview mb-3" alt="Current banner for @Model.Name" />
+                }
+                else
+                {
+                    <div class="rd-event-banner-placeholder mb-3" aria-hidden="true">NO BANNER</div>
+                }
+
+                <label for="banner" class="form-label fw-semibold">Upload a new banner</label>
+                <input class="form-control" type="file" id="banner" name="banner"
+                       accept="image/png,image/jpeg,image/webp,image/gif" />
+                <span class="rd-label-hint d-block mt-2">
+                    The image is uploaded to Azure Blob Storage through the RaceDay API.
+                    JPG, PNG, WEBP or GIF &middot; maximum 5 MB.
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

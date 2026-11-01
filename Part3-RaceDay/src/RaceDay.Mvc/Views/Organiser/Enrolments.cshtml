@@ -1,0 +1,104 @@
+@model IReadOnlyList<RaceDay.Mvc.Models.EventEnrolmentDto>
+@{
+    var ev = ViewBag.Event as RaceDay.Mvc.Models.EventDetailDto;
+    ViewData["Title"] = "Enrolments";
+    var confirmed = Model.Count(e => e.Status == "Confirmed");
+    var pending = Model.Count(e => e.Status == "Pending");
+    var cancelled = Model.Count(e => e.Status == "Cancelled");
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Organiser" asp-action="Events">Events</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Enrolments</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h1 class="rd-section-title mb-1">Enrolments</h1>
+        <p class="text-muted mb-0">@ev?.Name &middot; @ev?.Date.ToString("dd MMM yyyy")</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-rd-outline" asp-controller="Organiser" asp-action="Categories" asp-route-id="@ev?.Id">Categories</a>
+        <a class="btn btn-rd-dark" asp-controller="Organiser" asp-action="Results" asp-route-id="@ev?.Id">Results entry</a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-4">
+        <div class="rd-stat is-success">
+            <div class="rd-stat-value">@confirmed</div>
+            <div class="rd-stat-label">Confirmed</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="rd-stat is-warning">
+            <div class="rd-stat-value">@pending</div>
+            <div class="rd-stat-label">Pending</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="rd-stat is-dark">
+            <div class="rd-stat-value">@cancelled</div>
+            <div class="rd-stat-label">Cancelled</div>
+        </div>
+    </div>
+</div>
+
+<div class="rd-card">
+    @if (!Model.Any())
+    {
+        <div class="rd-empty">
+            <p class="mb-0">No participants have entered this event yet.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Participant</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Enrolment status</th>
+                        <th scope="col">Entered on</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrolment in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@enrolment.ParticipantName</td>
+                            <td class="small text-muted">@enrolment.Email</td>
+                            <td>@(enrolment.CategoryName ?? "—")</td>
+                            <td><partial name="_StatusBadge" model="@enrolment.Status" /></td>
+                            <td>@enrolment.EnrolledAt.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (enrolment.FinishTime is null)
+                                {
+                                    <span class="text-muted small">Not recorded</span>
+                                }
+                                else
+                                {
+                                    <span class="fw-semibold">@enrolment.FinishTime</span>
+                                    <span class="small text-muted"> &middot; position @enrolment.Position</span>
+                                    @if (enrolment.ResultPublished)
+                                    {
+                                        <span class="rd-status rd-status-confirmed ms-1">Published</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="rd-status rd-status-pending ms-1">Draft</span>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

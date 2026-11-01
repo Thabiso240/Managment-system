@@ -1,0 +1,142 @@
+@model IReadOnlyList<RaceDay.Mvc.Models.EventEnrolmentDto>
+@{
+    var ev = ViewBag.Event as RaceDay.Mvc.Models.EventDetailDto;
+    var publishedCount = (int?)ViewBag.PublishedCount ?? 0;
+    ViewData["Title"] = "Results Entry";
+    var finishers = Model.Count(e => e.FinishTime is not null);
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Organiser" asp-action="Events">Events</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Results entry</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h1 class="rd-section-title mb-1">Results entry</h1>
+        <p class="text-muted mb-0">@ev?.Name &middot; @ev?.Date.ToString("dd MMM yyyy")</p>
+    </div>
+    <a class="btn btn-rd-outline" asp-controller="Organiser" asp-action="Enrolments" asp-route-id="@ev?.Id">View enrolments</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="rd-stat">
+            <div class="rd-stat-value">@Model.Count</div>
+            <div class="rd-stat-label">Enrolled participants</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="rd-stat is-warning">
+            <div class="rd-stat-value">@finishers</div>
+            <div class="rd-stat-label">Finish times captured</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="rd-stat is-success">
+            <div class="rd-stat-value">@publishedCount</div>
+            <div class="rd-stat-label">Results published</div>
+        </div>
+    </div>
+</div>
+
+<div class="rd-card mb-4">
+    <div class="rd-card-body">
+        <h2 class="h5 fw-bold mb-1">Publish results</h2>
+        <p class="text-muted small">Publishing makes every captured result visible to Participants under "My Results".</p>
+
+        <form asp-controller="Organiser" asp-action="PublishResults" method="post" class="row g-2 align-items-end"
+              onsubmit="return confirm('Publish all captured results for this event?');">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="eventId" value="@ev?.Id" />
+            <div class="col-sm-4">
+                <label for="totalFinishers" class="form-label fw-semibold">Total finishers</label>
+                <input id="totalFinishers" name="totalFinishers" type="number" min="1" class="form-control"
+                       value="@(finishers > 0 ? finishers : 1)" />
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-rd">Publish results</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="rd-card">
+    <div class="rd-card-body pb-0">
+        <h2 class="h5 fw-bold">Capture finish times</h2>
+        <p class="text-muted small">Enter the finish time as hh:mm:ss (for example 03:58:12) and the finishing position.</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="rd-empty">
+            <p class="mb-0">There are no enrolments to record results for.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Participant</th>
+                        <th scope="col">Category</th>
+                        <th scope="col" style="min-width:150px;">Finish time</th>
+                        <th scope="col" style="min-width:120px;">Position</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-end">Save</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrolment in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-semibold d-block">@enrolment.ParticipantName</span>
+                                <span class="small text-muted">@enrolment.Email</span>
+                            </td>
+                            <td>@(enrolment.CategoryName ?? "—")</td>
+                            <td colspan="4">
+                                <form asp-controller="Organiser" asp-action="RecordResult" method="post" class="row g-2 align-items-center">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="eventId" value="@ev?.Id" />
+                                    <input type="hidden" name="enrolmentId" value="@enrolment.EnrolmentId" />
+
+                                    <div class="col-6 col-md">
+                                        <label class="visually-hidden" for="time-@enrolment.EnrolmentId">Finish time for @enrolment.ParticipantName</label>
+                                        <input class="form-control form-control-sm" id="time-@enrolment.EnrolmentId" name="finishTime"
+                                               placeholder="hh:mm:ss" value="@enrolment.FinishTime" required />
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <label class="visually-hidden" for="pos-@enrolment.EnrolmentId">Position for @enrolment.ParticipantName</label>
+                                        <input class="form-control form-control-sm" id="pos-@enrolment.EnrolmentId" name="position"
+                                               type="number" min="1" placeholder="Pos" value="@enrolment.Position" required />
+                                    </div>
+                                    <div class="col-2 col-md-auto">
+                                        <button type="submit" class="btn btn-sm btn-rd-dark">Save</button>
+                                    </div>
+                                    <div class="col-12 col-md-auto">
+                                        @if (enrolment.ResultPublished)
+                                        {
+                                            <span class="rd-status rd-status-confirmed">Published</span>
+                                        }
+                                        else if (enrolment.FinishTime is not null)
+                                        {
+                                            <span class="rd-status rd-status-pending">Draft</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="rd-status" style="background:#EEF2F7;color:#5B6B7F;border:1px solid #D6DEE8;">Awaiting</span>
+                                        }
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
