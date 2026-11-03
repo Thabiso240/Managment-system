@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# RaceDay - run the whole platform with a single command:
+#
+#     docker compose up --build
+#
+# Then open the MVC front end at http://localhost:5031
+# ---------------------------------------------------------------------------
+services:
+  raceday-api:
+    build:
+      context: ./src/RaceDay.Api
+      dockerfile: Dockerfile
+    image: raceday-api:latest
+    container_name: raceday-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # Persist the SQLite database and uploaded files inside named volumes.
+      - ConnectionStrings__Default=Data Source=/app/data/raceday.db
+      # Supply a real Azure Storage connection string here to switch the API
+      # from the local-disk fallback to Azure Blob Storage.
+      - BlobStorage__ConnectionString=${AZURE_STORAGE_CONNECTION_STRING:-}
+      - BlobStorage__ContainerName=raceday-images
+    volumes:
+      - raceday-api-data:/app/data
+      - raceday-api-uploads:/app/wwwroot/uploads
+    ports:
+      - "5132:8080"
+    healthcheck:
+      test: ["CMD", "dotnet", "--info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  raceday-mvc:
+    build:
+      context: ./src/RaceDay.Mvc
+      dockerfile: Dockerfile
+    image: raceday-mvc:latest
+    container_name: raceday-mvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # The MVC app reaches the API by its service name on the compose network.
+      - ApiBaseUrl=http://raceday-api:8080/
+    ports:
+      - "5031:8080"
+    depends_on:
+      - raceday-api
+    restart: unless-stopped
+
+volumes:
+  raceday-api-data:
+  raceday-api-uploads:
