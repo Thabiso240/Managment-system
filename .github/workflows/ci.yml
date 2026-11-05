@@ -1,0 +1,71 @@
+name: RaceDay CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  # -------------------------------------------------------------------------
+  # Build the API and the MVC application and validate the repository layout.
+  # -------------------------------------------------------------------------
+  build:
+    name: Build .NET solution
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore Part3-RaceDay/RaceDay.sln
+
+      - name: Build solution
+        run: dotnet build Part3-RaceDay/RaceDay.sln --configuration Release --no-restore
+
+      - name: Validate repository structure
+        run: |
+          set -e
+          echo "Checking required project files..."
+          test -f Part3-RaceDay/src/RaceDay.Api/RaceDay.Api.csproj
+          test -f Part3-RaceDay/src/RaceDay.Mvc/RaceDay.Mvc.csproj
+          test -f Part3-RaceDay/src/RaceDay.Api/Dockerfile
+          test -f Part3-RaceDay/src/RaceDay.Mvc/Dockerfile
+          test -f Part3-RaceDay/docker-compose.yml
+          test -f README.md
+          test -f Part2-Prototype/index.html
+          echo "All required files are present."
+
+      - name: Publish API
+        run: dotnet publish Part3-RaceDay/src/RaceDay.Api/RaceDay.Api.csproj --configuration Release --no-build --output ./artifacts/api
+
+      - name: Publish MVC
+        run: dotnet publish Part3-RaceDay/src/RaceDay.Mvc/RaceDay.Mvc.csproj --configuration Release --no-build --output ./artifacts/mvc
+
+  # -------------------------------------------------------------------------
+  # Prove that both images build cleanly from the committed Dockerfiles.
+  # -------------------------------------------------------------------------
+  docker:
+    name: Build Docker images
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build API image
+        run: docker build -t raceday-api:ci Part3-RaceDay/src/RaceDay.Api
+
+      - name: Build MVC image
+        run: docker build -t raceday-mvc:ci Part3-RaceDay/src/RaceDay.Mvc
+
+      - name: List built images
+        run: docker images | grep raceday
